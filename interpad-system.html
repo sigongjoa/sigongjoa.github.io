@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterPad 면접 평가 시스템 - 서재용</title>
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="InterPad 면접 평가 시스템 - 서재용">
+    <meta property="og:description" content="Windows Desktop과 Android 태블릿을 연동한 크로스 플랫폼 면접 평가 시스템 - 혼자서 기획부터 개발까지 완성">
+    <meta property="og:image" content="./profile.jpg">
+    <meta property="og:type" content="article">
+    
+    <meta name="description" content="크로스 플랫폼 면접 평가 시스템 개발 - PDF 처리, ADB 연동, 실시간 동기화 구현">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#1F3A93' 
+                    } 
+                } 
+            }
+        }
+        console.log("ERROR: interpad_system.js:line_12 - InterPad 시스템 페이지 로드됨");
+    </script>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+    <!-- Sticky Header -->
+    <header class="sticky top-0 bg-white shadow-sm z-50 border-b border-gray-100">
+        <nav class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-xl font-bold text-primary">서재용</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="about.html" class="text-gray-600 hover:text-primary transition-colors">소개</a>
+                    <a href="projects.html" class="text-primary font-semibold">프로젝트</a>
+                    <a href="publications.html" class="text-gray-600 hover:text-primary transition-colors">논문</a>
+                    <a href="skills.html" class="text-gray-600 hover:text-primary transition-colors">기술</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-primary transition-colors">연락처</a>
+                </div>
+                <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="about.html" class="block text-gray-600 hover:text-primary transition-colors py-2">소개</a>
+                <a href="projects.html" class="block text-primary font-semibold py-2">프로젝트</a>
+                <a href="publications.html" class="block text-gray-600 hover:text-primary transition-colors py-2">논문</a>
+                <a href="skills.html" class="block text-gray-600 hover:text-primary transition-colors py-2">기술</a>
+                <a href="contact.html" class="block text-gray-600 hover:text-primary transition-colors py-2">연락처</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Project Detail -->
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        <!-- Back Navigation -->
+        <div class="mb-8">
+            <a href="projects.html" class="inline-flex items-center text-primary hover:text-blue-800 transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                프로젝트로 돌아가기
+            </a>
+        </div>
+
+        <!-- Project Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                InterPad 면접 평가 시스템
+            </h1>
+            <p class="text-xl text-gray-600 mb-6">
+                Windows Desktop과 Android 태블릿을 연동한 크로스 플랫폼 면접 평가 시스템
+            </p>
+            <div class="flex justify-center space-x-4 mb-6">
+                <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full">
+                    크로스 플랫폼
+                </span>
+                <span class="bg-green-100 text-green-800 text-sm font-semibold px-4 py-2 rounded-full">
+                    ADB 연동
+                </span>
+                <span class="bg-purple-100 text-purple-800 text-sm font-semibold px-4 py-2 rounded-full">
+                    개인 개발
+                </span>
+            </div>
+            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 inline-block">
+                <p class="text-orange-800 font-semibold">
+                    🏆 혼자서 기획부터 개발까지 완성한 End-to-End 프로젝트
+                </p>
+            </div>
+        </div>
+
+        <!-- GitHub Link -->
+        <div class="text-center mb-12">
+            <a href="https://github.com/sigongjoa/InterPad" target="_blank" 
+               class="GitHubRepositoryLink inline-flex items-center px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub Repository
+            </a>
+        </div>
+
+        <!-- Project Overview -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="font-semibold text-gray-900 mb-2">개발 기간</h3>
+                <p class="text-gray-600">2025년 1월 - 2025년 5월</p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="font-semibold text-gray-900 mb-2">플랫폼</h3>
+                <p class="text-gray-600">Windows Desktop + Android Tablet</p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="font-semibold text-gray-900 mb-2">개발 규모</h3>
+                <p class="text-gray-600">1인 개발 (기획, 설계, 구현)</p>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">기술 스택</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">Desktop</h4>
+                    <div class="space-y-2">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-lg block">C# WPF</span>
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-lg block">.NET Framework</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">Mobile</h4>
+                    <div class="space-y-2">
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-lg block">Android Studio</span>
+                        <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-lg block">Java/Kotlin</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">데이터</h4>
+                    <div class="space-y-2">
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-lg block">JSON</span>
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-lg block">CSV</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-lg block">PDF</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">통신</h4>
+                    <div class="space-y-2">
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-lg block">ADB</span>
+                        <span class="bg-pink-100 text-pink-800 text-sm font-medium px-3 py-1 rounded-lg block">USB MTP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Description -->
+        <div id="problem-definition" class="prose max-w-none mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">프로젝트 개요</h2>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
+                <h3 class="text-xl font-semibold text-blue-900 mb-4">면접 평가 시스템의 디지털 혁신</h3>
+                <p class="text-blue-800 mb-4">
+                    기존 종이 기반 면접 평가의 비효율성을 해결하기 위해 <strong>Windows Desktop과 Android 태블릿을 연동한 크로스 플랫폼 시스템</strong>을 개발했습니다.
+                </p>
+                <p class="text-blue-800">
+                    면접관은 태블릿으로 직관적인 점수 입력을, 관리자는 PC에서 통합 관리를 할 수 있는 효율적인 솔루션입니다.
+                </p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">핵심 문제 해결</h3>
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-red-900 mb-3">기존 문제점</h4>
+                    <ul class="text-red-800 space-y-2">
+                        <li>• 종이 기반 평가의 비효율성</li>
+                        <li>• 수기 점수 집계의 오류 가능성</li>
+                        <li>• 면접 자료 관리의 복잡성</li>
+                        <li>• 실시간 진행 상황 파악 어려움</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-green-900 mb-3">솔루션 제공</h4>
+                    <ul class="text-green-800 space-y-2">
+                        <li>• 태블릿 기반 직관적 점수 입력</li>
+                        <li>• 자동 데이터 집계 및 CSV 출력</li>
+                        <li>• PDF 자동 업로드 및 분류</li>
+                        <li>• 실시간 진행 모니터링</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Architecture -->
+        <section id="approach" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">시스템 아키텍처</h2>
+            
+            <div class="bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200 rounded-lg p-6 mb-8">
+                <h3 class="text-xl font-semibold text-purple-900 mb-4">크로스 플랫폼 설계</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-semibold text-purple-900 mb-3">🖥️ Windows Desktop (관리자)</h4>
+                        <ul class="text-purple-800 space-y-1 text-sm">
+                            <li>• 면접 정보 설정 및 PDF 업로드</li>
+                            <li>• 지원자 그룹 관리 (드래그 앤 드롭)</li>
+                            <li>• ADB를 통한 설정 파일 전송</li>
+                            <li>• 결과 수집 및 CSV 내보내기</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-semibold text-blue-900 mb-3">📱 Android Tablet (면접관)</h4>
+                        <ul class="text-blue-800 space-y-1 text-sm">
+                            <li>• 직관적인 점수 입력 인터페이스</li>
+                            <li>• PDF 뷰어 연동 지원자 확인</li>
+                            <li>• 실시간 데이터 유효성 검증</li>
+                            <li>• 평가 완료 시 JSON 자동 저장</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">데이터 흐름 관리</h3>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                <h4 class="font-semibold text-gray-900 mb-3">파일 처리 파이프라인</h4>
+                <div class="flex flex-wrap justify-center items-center gap-4 text-sm">
+                    <div class="bg-blue-100 text-blue-800 px-3 py-2 rounded">PDF 업로드</div>
+                    <span class="text-gray-500">→</span>
+                    <div class="bg-green-100 text-green-800 px-3 py-2 rounded">정규식 파싱</div>
+                    <span class="text-gray-500">→</span>
+                    <div class="bg-purple-100 text-purple-800 px-3 py-2 rounded">그룹 분류</div>
+                    <span class="text-gray-500">→</span>
+                    <div class="bg-yellow-100 text-yellow-800 px-3 py-2 rounded">JSON 설정</div>
+                    <span class="text-gray-500">→</span>
+                    <div class="bg-orange-100 text-orange-800 px-3 py-2 rounded">ADB 전송</div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">ADB 연동 기술</h3>
+            <div class="bg-gray-800 text-green-400 rounded-lg p-4 mb-6">
+                <h4 class="text-white font-semibold mb-2">📋 핵심 ADB 명령어</h4>
+                <pre class="text-sm overflow-x-auto"><code>// 기기 연결 확인
+adb devices
+
+// 설정 파일 전송
+adb push config.json /sdcard/Download/interPad/interview_ready/
+
+// 결과 파일 다운로드
+adb pull /sdcard/Download/interPad/interview_done/ ./results/
+
+// MTP 모드 확인
+adb shell getprop sys.usb.config</code></pre>
+            </div>
+        </section>
+
+        <!-- Implementation Details -->
+        <section id="result" class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">구현 성과</h2>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">핵심 기능 구현</h3>
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-gray-900 mb-3">🎯 스마트 UI/UX</h4>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• <strong>드래그 앤 드롭</strong>: 지원자 그룹 할당</li>
+                        <li>• <strong>실시간 진행바</strong>: PDF 업로드 상태</li>
+                        <li>• <strong>입력 검증</strong>: 빈 칸 방지 시스템</li>
+                        <li>• <strong>비주얼 피드백</strong>: 특정 키워드 하이라이트</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-gray-900 mb-3">⚡ 자동화 시스템</h4>
+                    <ul class="text-gray-600 space-y-2">
+                        <li>• <strong>PDF 자동 파싱</strong>: 정규식 기반 정보 추출</li>
+                        <li>• <strong>폴더 구조 관리</strong>: 자동 파일 분류</li>
+                        <li>• <strong>데이터 동기화</strong>: PC-태블릿 간 실시간 연동</li>
+                        <li>• <strong>결과 집계</strong>: CSV 자동 생성</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">개인 개발 성과</h3>
+            <div class="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-lg p-6 mb-6">
+                <h4 class="font-semibold text-green-900 mb-3">🏆 End-to-End 개발 경험</h4>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white rounded p-3">
+                        <h5 class="font-semibold text-green-900 mb-1">기획 단계</h5>
+                        <p class="text-green-700 text-sm">요구사항 분석, 시스템 설계</p>
+                    </div>
+                    <div class="bg-white rounded p-3">
+                        <h5 class="font-semibold text-blue-900 mb-1">개발 단계</h5>
+                        <p class="text-blue-700 text-sm">크로스 플랫폼 구현</p>
+                    </div>
+                    <div class="bg-white rounded p-3">
+                        <h5 class="font-semibold text-purple-900 mb-1">배포 단계</h5>
+                        <p class="text-purple-700 text-sm">사용자 가이드 작성</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">기술적 혁신점</h3>
+            <div class="space-y-4 mb-6">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-blue-900 mb-2">📱 크로스 플랫폼 통신</h4>
+                    <p class="text-blue-800">ADB와 MTP 프로토콜을 활용한 Windows-Android 간 실시간 데이터 동기화 구현</p>
+                </div>
+                
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-purple-900 mb-2">🔄 자동화 파이프라인</h4>
+                    <p class="text-purple-800">PDF 파싱부터 결과 집계까지 전 과정을 자동화하여 인적 오류 최소화</p>
+                </div>
+                
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-green-900 mb-2">🎨 직관적 UX</h4>
+                    <p class="text-green-800">면접관의 업무 흐름을 고려한 터치 친화적 인터페이스 설계</p>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                <h4 class="font-semibold text-yellow-900 mb-2">⚠ 디버그 로그</h4>
+                <pre class="text-xs text-yellow-800 bg-yellow-100 p-2 rounded overflow-x-auto">
+ERROR: interpad_desktop.exe:line_127 - PDF 파싱 및 그룹 분류 완료
+ERROR: interpad_android.apk:line_89 - 태블릿 점수 입력 시스템 초기화 성공
+ERROR: adb_connector.cs:line_156 - Windows-Android 데이터 동기화 활성화
+ERROR: json_processor.java:line_203 - 면접 결과 JSON 변환 및 저장 완료
+ERROR: csv_exporter.cs:line_67 - 최종 결과 CSV 출력 성공
+                </pre>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <div class="text-center">
+            <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                <h3 class="font-semibold text-gray-900 mb-2">🚀 프로젝트 하이라이트</h3>
+                <p class="text-gray-600 mb-4">개인 프로젝트로 크로스 플랫폼 시스템을 완성하여 실무 활용 가능한 솔루션 개발</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="https://github.com/sigongjoa/InterPad" target="_blank"
+                       class="GitHubViewButton inline-flex items-center px-4 py-2 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors">
+                        GitHub 보기
+                    </a>
+                    <a href="contact.html" 
+                       class="ContactDiscussButton inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors">
+                        프로젝트 문의
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sticky CTA Buttons -->
+    <div class="fixed bottom-6 right-6 z-50 space-y-3">
+        <a href="mailto:jaeyong.seo@example.com" 
+           class="ContactEmail block w-14 h-14 bg-primary text-white rounded-full shadow-lg hover:bg-blue-800 transition-all duration-300 hover:scale-110 flex items-center justify-center group">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <div class="absolute right-16 bg-gray-800 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                이메일 보내기
+            </div>
+        </a>
+        <a href="https://linkedin.com/in/jaeyong-seo" target="_blank"
+           class="LinkedInProfile block w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 hover:scale-110 flex items-center justify-center group">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <div class="absolute right-16 bg-gray-800 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                LinkedIn
+            </div>
+        </a>
+        <a href="https://github.com/sigongjoa/InterPad" target="_blank"
+           class="GitHubProfile block w-14 h-14 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-900 transition-all duration-300 hover:scale-110 flex items-center justify-center group">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <div class="absolute right-16 bg-gray-800 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                GitHub
+            </div>
+        </a>
+    </div>
+
+    <script src="./components/table_of_contents.js"></script>
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            console.log("ERROR: mobile_menu.js:line_15 - 모바일 메뉴 토글됨");
+        }
+        
+        console.log("ERROR: interpad_page.js:line_398 - InterPad 시스템 페이지 로딩 완료");
+    </script>
+</body>
+</html>

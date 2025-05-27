@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기술 - 서재용</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#1F3A93' 
+                    } 
+                } 
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+    <!-- Sticky Header -->
+    <header class="sticky top-0 bg-white shadow-sm z-50 border-b border-gray-100">
+        <nav class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-xl font-bold text-primary">서재용</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="about.html" class="text-gray-600 hover:text-primary transition-colors">소개</a>
+                    <a href="projects.html" class="text-gray-600 hover:text-primary transition-colors">프로젝트</a>
+                    <a href="publications.html" class="text-gray-600 hover:text-primary transition-colors">논문</a>
+                    <a href="skills.html" class="text-primary font-semibold">기술</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-primary transition-colors">연락처</a>
+                </div>
+                <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="about.html" class="block text-gray-600 hover:text-primary transition-colors py-2">소개</a>
+                <a href="projects.html" class="block text-gray-600 hover:text-primary transition-colors py-2">프로젝트</a>
+                <a href="publications.html" class="block text-gray-600 hover:text-primary transition-colors py-2">논문</a>
+                <a href="skills.html" class="block text-primary font-semibold py-2">기술</a>
+                <a href="contact.html" class="block text-gray-600 hover:text-primary transition-colors py-2">연락처</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Skills Section -->
+    <main class="max-w-6xl mx-auto px-6 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">기술</h1>
+            <p class="text-xl text-gray-600">기술적 전문성과 숙련도 수준</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Python -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">Python</h3>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-primary h-2 rounded-full" style="width: 95%"></div>
+                </div>
+                <span class="text-sm text-gray-600">전문가 (95%)</span>
+            </div>
+
+            <!-- PyTorch -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6M12,8A4,4 0 0,1 16,12A4,4 0 0,1 12,16A4,4 0 0,1 8,12A4,4 0 0,1 12,8Z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">PyTorch</h3>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-primary h-2 rounded-full" style="width: 92%"></div>
+                </div>
+                <span class="text-sm text-gray-600">전문가 (92%)</span>
+            </div>
+
+            <!-- TensorFlow -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">TensorFlow</h3>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-primary h-2 rounded-full" style="width: 88%"></div>
+                </div>
+                <span class="text-sm text-gray-600">고급 (88%)</span>
+            </div>
+
+            <!-- Gaussian Process -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3M13,13V7H11V13H13M13,17V15H11V17H13Z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">가우시안 프로세스</h3>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
+                </div>
+                <span class="text-sm text-gray-600">고급 (90%)</span>
+            </div>
+
+            <!-- Computer Vision -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">컴퓨터 비전</h3>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-primary h-2 rounded-full" style="width: 87%"></div>
+                </div>
+                <span class="text-sm text-gray-600">고급 (87%)</span>
+            </div>
+
+            <!-- Data Visualization -->
+            <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-lg text-center">
+                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z"/>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-3">데이터 시각화</h3>
+                <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                    <div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+                </div>
+                <span class="text-sm text-gray-600">고급 (85%)</span>
+            </div>
+        </div>
+
+        <!-- Additional Skills Section -->
+        <div class="mt-16">
+            <h2 class="text-2xl font-bold text-gray-900 text-center mb-8">기술 스택</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span class="text-gray-700 font-medium">Pandas & NumPy</span>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span class="text-gray-700 font-medium">Scikit-learn</span>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span class="text-gray-700 font-medium">Matplotlib & Seaborn</span>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span class="text-gray-700 font-medium">Plotly</span>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span class="text-gray-700 font-medium">Hugging Face</span>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span class="text-gray-700 font-medium">LightGBM</span>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span class="text-gray-700 font-medium">Jupyter Notebook</span>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <span class="text-gray-700 font-medium">Geopandas</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

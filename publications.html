@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>논문 - 서재용</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="notion-papers.js"></script>
+    <script>
+        tailwind.config = {
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#1F3A93' 
+                    } 
+                } 
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+    <!-- Sticky Header -->
+    <header class="sticky top-0 bg-white shadow-sm z-50 border-b border-gray-100">
+        <nav class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-xl font-bold text-primary">서재용</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="about.html" class="text-gray-600 hover:text-primary transition-colors">소개</a>
+                    <a href="projects.html" class="text-gray-600 hover:text-primary transition-colors">프로젝트</a>
+                    <a href="publications.html" class="text-primary font-semibold">논문</a>
+                    <a href="skills.html" class="text-gray-600 hover:text-primary transition-colors">기술</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-primary transition-colors">연락처</a>
+                </div>
+                <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="about.html" class="block text-gray-600 hover:text-primary transition-colors py-2">소개</a>
+                <a href="projects.html" class="block text-gray-600 hover:text-primary transition-colors py-2">프로젝트</a>
+                <a href="publications.html" class="block text-primary font-semibold py-2">논문</a>
+                <a href="skills.html" class="block text-gray-600 hover:text-primary transition-colors py-2">기술</a>
+                <a href="contact.html" class="block text-gray-600 hover:text-primary transition-colors py-2">연락처</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Publications Section -->
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        <div class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">논문</h1>
+            <p class="text-xl text-gray-600">AI 및 공학 분야에 대한 연구 기여</p>
+        </div>
+
+        <div class="space-y-8">
+            <!-- Notion 연동 논문 1 -->
+            <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    다중 태스크 희소 가우시안 프로세스를 이용한 IMU 센서의 성능 저하 예측
+                </h3>
+                <p class="text-primary font-semibold mb-3">임베디드공학회 추계학술대회 • 2024</p>
+                <p class="text-gray-600 mb-4">
+                    제한된 시험 데이터를 활용하여 유도무기 시스템의 IMU 센서 성능 저하를 예측하는 희소 가우시안 프로세스 기반의 새로운 접근법
+                </p>
+                <button onclick="openPaper('https://drive.google.com/file/d/1pY1lZEFLhJ0HrMuC4fqfqG8tPT2WtTtX/view?usp=sharing')" class="inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    논문 바로보기
+                </button>
+            </div>
+
+            <!-- Notion 연동 논문 2 -->
+            <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    소량의 시험 데이터를 이용한 IMU 불량검출 및 잔여유효수명 예측
+                </h3>
+                <p class="text-primary font-semibold mb-3">임베디드공학회 추계학술대회 • 2024</p>
+                <p class="text-gray-600 mb-4">
+                    제한된 학습 데이터와 높은 정밀도 요구사항을 가진 IMU 센서의 불량 탐지 및 잔여수명 예측을 위한 고도화된 머신러닝 기법
+                </p>
+                <button onclick="openPaper('https://drive.google.com/file/d/1JmW59dmnnYGz7AttwBFiyJVffw_ruTkK/view?usp=drive_link')" class="inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    논문 바로보기
+                </button>
+            </div>
+
+            <!-- Notion 연동 논문 3 -->
+            <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    시공간 데이터 학습을 이용한 딥러닝 모델 기반 교통사고 위험 예측
+                </h3>
+                <p class="text-primary font-semibold mb-3">응급의학회지 • 2023</p>
+                <p class="text-gray-600 mb-4">
+                    강원도 응급서비스 데이터를 활용한 교통사고 위험 예측을 위한 시공간 딥러닝 모델에 대한 포괄적인 연구
+                </p>
+                <button onclick="openPaper('https://drive.google.com/file/d/1Unu8OufdHN3V63Z9EKAGBkVdLukdzv5Y/view?usp=sharing')" class="inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    논문 바로보기
+                </button>
+            </div>
+
+            <!-- Notion 연동 논문 4 -->
+            <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    모공 및 주름 분할 기반 얼굴 피부 분석
+                </h3>
+                <p class="text-primary font-semibold mb-3">화장품과학회지 • 2024</p>
+                <p class="text-gray-600 mb-4">
+                    모공 및 주름 탐지를 위한 사용자 정의 손실 함수를 적용한 EfficientUnet을 사용한 자동화된 얼굴 피부 분석의 새로운 컴퓨터 비전 접근법
+                </p>
+                <button onclick="openPaper('https://drive.google.com/file/d/137UIjv5VCyW0d5_Nw_qtKqZ_FTMbm1Sr/view?usp=sharing')" class="inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    논문 바로보기
+                </button>
+            </div>
+
+            <!-- Notion 연동 논문 5 -->
+            <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    신호 분해 기반 설비 상태 모니터링 성능 향상
+                </h3>
+                <p class="text-primary font-semibold mb-3">산업공학회지 • 2024</p>
+                <p class="text-gray-600 mb-4">
+                    TFT 모델 성능 향상을 위한 FFT, EEMD, EMD, VMD 등 신호 분해 기법 비교 연구
+                </p>
+                <button onclick="openPaper('https://drive.google.com/file/d/1R9yiqBvH8l3IdFxR_-VwVtC0BAByUytA/view?usp=drive_link')" class="inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    논문 바로보기
+                </button>
+            </div>
+
+            <!-- Notion 연동 논문 6 -->
+            <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    AI 기반 데이터 수집 및 모델링 프로젝트
+                </h3>
+                <p class="text-primary font-semibold mb-3">Stable Diffusion 아바타 생성 시스템 • 2024</p>
+                <p class="text-gray-600 mb-4">
+                    Stable Diffusion 모델을 활용한 게임 아바타 자동 생성 및 VAE 기반 유사도 분석을 통한 추천 시스템 개발
+                </p>
+                <button onclick="openPaper('https://drive.google.com/file/d/1AbE9BEIcq2wZM5zOBO7iB_ZOmP58ZVHw/view?usp=drive_link')" class="inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 616 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    논문 바로보기
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

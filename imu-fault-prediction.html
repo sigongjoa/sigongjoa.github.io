@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMU 센서 불량 예측 - 서재용</title>
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="IMU 센서 불량 예측 - 서재용">
+    <meta property="og:description" content="유도무기 탑재 IMU 센서의 딥러닝 기반 불량 예측 기술 개발 - 정밀도 97.62% 달성">
+    <meta property="og:image" content="./profile.jpg">
+    <meta property="og:type" content="article">
+    
+    <meta name="description" content="진동 주파수 변동을 고려한 고정밀 IMU 센서 불량 예측 시스템 개발 사례">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { 
+                extend: { 
+                    colors: { 
+                        primary: '#1F3A93' 
+                    } 
+                } 
+            }
+        }
+        console.log("IMU 센서 불량 예측 페이지 로드됨");
+    </script>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+    <!-- Sticky Header -->
+    <header class="sticky top-0 bg-white shadow-sm z-50 border-b border-gray-100">
+        <nav class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-xl font-bold text-primary">서재용</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="about.html" class="text-gray-600 hover:text-primary transition-colors">소개</a>
+                    <a href="projects.html" class="text-primary font-semibold">프로젝트</a>
+                    <a href="publications.html" class="text-gray-600 hover:text-primary transition-colors">논문</a>
+                    <a href="skills.html" class="text-gray-600 hover:text-primary transition-colors">기술</a>
+                    <a href="contact.html" class="text-gray-600 hover:text-primary transition-colors">연락처</a>
+                </div>
+                <button class="md:hidden text-gray-600" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-2">
+                <a href="about.html" class="block text-gray-600 hover:text-primary transition-colors py-2">소개</a>
+                <a href="projects.html" class="block text-primary font-semibold py-2">프로젝트</a>
+                <a href="publications.html" class="block text-gray-600 hover:text-primary transition-colors py-2">논문</a>
+                <a href="skills.html" class="block text-gray-600 hover:text-primary transition-colors py-2">기술</a>
+                <a href="contact.html" class="block text-gray-600 hover:text-primary transition-colors py-2">연락처</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Project Detail -->
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        <!-- Back Navigation -->
+        <div class="mb-8">
+            <a href="projects.html" class="inline-flex items-center text-primary hover:text-blue-800 transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                프로젝트로 돌아가기
+            </a>
+        </div>
+
+
+
+        <!-- Project Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                유도무기 탑재 IMU 센서의 딥러닝 기반 불량 예측 기술 개발
+            </h1>
+            <p class="text-xl text-gray-600 mb-6">
+                진동 주파수 변동을 고려한 고정밀 IMU 센서 불량 예측 시스템
+            </p>
+            <div class="flex justify-center space-x-4">
+                <span class="bg-green-100 text-green-800 text-sm font-semibold px-4 py-2 rounded-full">
+                    정밀도: 97.62%
+                </span>
+                <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-2 rounded-full">
+                    정확도: 95%+
+                </span>
+                <span class="bg-purple-100 text-purple-800 text-sm font-semibold px-4 py-2 rounded-full">
+                    재현율: 95%+
+                </span>
+            </div>
+        </div>
+
+        <!-- Project Overview -->
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="font-semibold text-gray-900 mb-2">프로젝트 기간</h3>
+                <p class="text-gray-600">2024년 6월 - 2024년 11월</p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="font-semibold text-gray-900 mb-2">데이터</h3>
+                <p class="text-gray-600">IMU 센서 점검 데이터</p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="font-semibold text-gray-900 mb-2">모델</h3>
+                <p class="text-gray-600">자체 개발 딥러닝 모델</p>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">기술 스택</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">프레임워크</h4>
+                    <div class="space-y-2">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-lg block">PyTorch</span>
+                        <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-lg block">sklearn</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">데이터 처리</h4>
+                    <div class="space-y-2">
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-lg block">Pandas</span>
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-lg block">NumPy</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">시각화</h4>
+                    <div class="space-y-2">
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-lg block">Matplotlib</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-lg block">Seaborn</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-lg block">Plotly</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4">
+                <h4 class="font-semibold text-gray-900 mb-2">개발 환경</h4>
+                <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-2 rounded-lg">Jupyter Notebook</span>
+            </div>
+        </div>
+
+        <!-- Problem Definition -->
+        <section id="problem-definition" class="ProblemDefinitionSection mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">문제 정의</h2>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
+                <h3 class="text-xl font-semibold text-blue-900 mb-4">시스템 아키텍처</h3>
+                <p class="text-blue-800 mb-4">
+                    유도 무기 체계에 들어가는 IMU 센서는 <strong>입고 점검 → 국내 점검 → 해외 점검</strong>의 총 <strong>3단계 점검 절차</strong>를 거칩니다.
+                </p>
+                <p class="text-blue-800">
+                    초기 점검 데이터를 활용하여 이후에 오류를 사전 예측하는 것이 이 프로젝트의 핵심 목표입니다.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- Approach -->
+        <section id="approach" class="ApproachSection mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">접근법</h2>
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">담당 업무</h3>
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-green-900 mb-3">데이터 전처리</h4>
+                    <ul class="text-green-800 space-y-1 text-sm">
+                        <li>• 3단계 점검 데이터 품질 검수</li>
+                        <li>• 중복 데이터 식별 및 제거</li>
+                        <li>• 이상치 탐지 및 정제</li>
+                        <li>• 데이터 구조 표준화</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-purple-900 mb-3">데이터 분석</h4>
+                    <ul class="text-purple-800 space-y-1 text-sm">
+                        <li>• 6축 IMU 데이터 특성 분석</li>
+                        <li>• R DIFF 값 기반 불량 판정 기준</li>
+                        <li>• 진동 주파수 변동 패턴 분석</li>
+                        <li>• 단품점검-국내점검-현지점검 상관관계 분석</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-orange-900 mb-3">불량 모델링</h4>
+                    <ul class="text-orange-800 space-y-1 text-sm">
+                        <li>• 자체 개발 딥러닝 모델 설계</li>
+                        <li>• 가우시안 프로세스 최적화</li>
+                        <li>• 결정 트리 알고리즘 적용</li>
+                        <li>• 실시간 예측 시스템 구축</li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Result -->
+        <section id="result" class="ResultSection mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">결과</h2>
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">핵심 성과</h3>
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-gray-900 mb-3">성능 개선</h4>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-green-50 rounded">
+                            <span class="text-green-800">가속도/각속도 6축 정확도</span>
+                            <span class="font-bold text-green-900">95%+</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-blue-50 rounded">
+                            <span class="text-blue-800">정밀도 개선</span>
+                            <span class="font-bold text-blue-900">19.52% → 97.62%</span>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-purple-50 rounded">
+                            <span class="text-purple-800">재현율</span>
+                            <span class="font-bold text-purple-900">95%+</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-gray-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-gray-900 mb-3">연구 성과</h4>
+                    <ul class="text-gray-600 space-y-2">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            국내 학술대회 발표 및 논문 게재 성과 달성
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            진동 주파수 변동 고려 알고리즘 개발
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            기존 불량 탐지 방식 대비 대폭 성능 개선
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Notion 포트폴리오 데이터 기반 실제 구현 내용 -->
+        <section id="implementation-details" class="ImplementationDetailsSection mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Notion 포트폴리오 기반 실제 구현</h2>
+            
+            <div class="bg-green-50 border-l-4 border-green-400 p-6 mb-8">
+                <h3 class="text-xl font-semibold text-green-900 mb-4">✅ 실제 성과 (Notion 데이터)</h3>
+                <p class="text-green-800 mb-4">
+                    <strong>진행기간:</strong> 2024년 6월 ~ 2024년 11월 (6개월)
+                </p>
+                <ul class="text-green-800 space-y-2">
+                    <li>• <strong>가속도/각속도 6축 데이터:</strong> 정확도, 정밀도, 재현율 95% 달성</li>
+                    <li>• <strong>성능 개선:</strong> 기존 19.52% → 97.62% (정밀도 대폭 향상)</li>
+                    <li>• <strong>핵심 기술:</strong> 진동 주파수 변동을 고려한 결정 트리 알고리즘</li>
+                    <li>• <strong>연구 성과:</strong> 국내 학술대회 발표 및 논문 게재</li>
+                    <li>• <strong>불량 판정 기준:</strong> R DIFF 값 3.33 이상 시 불량 처리</li>
+                </ul>
+            </div>
+
+            <!-- Notion 이미지들 -->
+            <div class="bg-gray-50 rounded-lg p-6 mb-8">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">📊 데이터 분석 결과 (Notion 포트폴리오)</h3>
+                
+                <div class="mb-6">
+                    <h4 class="font-semibold text-gray-900 mb-3">3단계 점검 데이터 분석</h4>
+                    <p class="text-gray-700 mb-4">
+                        단품점검 → 국내점검 → 현지점검에 대한 불량 판정 기준: <strong>R DIFF 값 3.33 이상</strong>
+                    </p>
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/0c258f16-98c3-4634-b4a3-ab41835aa370/9ee38e76-8edd-4291-88cb-c8b0b6d0cc64/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466XPGUERC3%2F20250527%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250527T073743Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEI%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEEesNoc3hiASWD8bG%2FHiaOXWxnnYhtsFmv6cyOwe0bRAiBBr1Qvw%2BLMZsg9DGikb%2BhrORE9l1K1jXGyhrEMtS0caSr%2FAwhYEAAaDDYzNzQyMzE4MzgwNSIMPLupk8WslKQJOYQGKtwDJEBjLXl2COmNA62oWhau0NXIiNKDDo7DcRpbhAA4drfqR9J0CUJmlaoFCvln%2FUKuXXuk9med4YJFuM6g%2F1QN3e%2BpFaUqiQGc7UEpNGd%2BwHINNTZGF%2BJCQe03CFx22mwlld89G14fIWueHegKUpESdQtNn%2BlfQgHObHTBwRTDiR%2FhBvywPt7Hevj4FuTL6E25KFEzcts8acEEok%2FqS4Pi67cX3oGKcQkny1QJd4OuqRe%2BHk%2Bc%2BJEcyCSZH3Ph1bRYiRObWUrhmUs8NleMuBFcDAHEHYUHq6fh7Lfl6PXzqrLMlPwXpRYvX8SwAcNKTJN76OLbcCn5sGEk27MssI6Xjg4aRVloMAPDZ24gSLw9FxsT2j3ZB4qph8SkI3cN3J7Kzcdp94I5E11ekNieTPtf1FC5pG5KUOOdgwhR1Bs%2BpGrYR1I3mUyHf7LW8bFvXEgzSXm8YbFv%2FfV%2Fs6cWyR9xg%2F85yhilMLY2d%2F0HCmOl1ud9CZy1kybORixw8iA69Eq6IFg0ZAOjtp1S07DYHuX4iuHsKU3NMb%2BoK0Hwg5ciDUHkmzlGpQu6liI313uHZLEzpz0DI4T4Gl5l9Lm0lyHu8ykp3bRB%2BDJPBPviF0vjyseuknM0hrpNJbM9FYgwnL%2FVwQY6pgHc2rg2Saxea%2BpQpHU0Cub6zbt5%2BRjrWlvrs9oVQahJLCqTxAJGyaQ9YOOPiY2gKKViXBoYHf38YI7Vrj%2FA68ZqM9X%2F5YXtPrcGY%2BbGtN61DTa4Ih6j2F1r3C4mLOdwLun7kxIY4BoxNByg7fa%2F%2BNlDW5GMK6A2efUuBEi39tSUk4iDB%2FG36bIrK5%2BQuPGSYUMr%2BMLmbo11WRuf38%2Bql%2FQQXBSoV9fq&X-Amz-Signature=d5567e606b1f7ab576647499c5ef1cd740c812856bc297e844b456795b5fdf89&X-Amz-SignedHeaders=host&x-id=GetObject" alt="IMU 센서 3단계 점검 데이터 분석" class="w-full rounded-lg shadow-sm">
+                        <p class="text-sm text-gray-600 mt-2 text-center">각 점검 데이터별 1-단품점검, 2-국내점검, 3-현지점검 R DIFF 분석</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-900 mb-3">데이터 분포 분석</h4>
+                        <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/0c258f16-98c3-4634-b4a3-ab41835aa370/b69cdc88-0ffa-41e4-95d9-97a7b2812941/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466XPGUERC3%2F20250527%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250527T073743Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEI%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEEesNoc3hiASWD8bG%2FHiaOXWxnnYhtsFmv6cyOwe0bRAiBBr1Qvw%2BLMZsg9DGikb%2BhrORE9l1K1jXGyhrEMtS0caSr%2FAwhYEAAaDDYzNzQyMzE4MzgwNSIMPLupk8WslKQJOYQGKtwDJEBjLXl2COmNA62oWhau0NXIiNKDDo7DcRpbhAA4drfqR9J0CUJmlaoFCvln%2FUKuXXuk9med4YJFuM6g%2F1QN3e%2BpFaUqiQGc7UEpNGd%2BwHINNTZGF%2BJCQe03CFx22mwlld89G14fIWueHegKUpESdQtNn%2BlfQgHObHTBwRTDiR%2FhBvywPt7Hevj4FuTL6E25KFEzcts8acEEok%2FqS4Pi67cX3oGKcQkny1QJd4OuqRe%2BHk%2Bc%2BJEcyCSZH3Ph1bRYiRObWUrhmUs8NleMuBFcDAHEHYUHq6fh7Lfl6PXzqrLMlPwXpRYvX8SwAcNKTJN76OLbcCn5sGEk27MssI6Xjg4aRVloMAPDZ24gSLw9FxsT2j3ZB4qph8SkI3cN3J7Kzcdp94I5E11ekNieTPtf1FC5pG5KUOOdgwhR1Bs%2BpGrYR1I3mUyHf7LW8bFvXEgzSXm8YbFv%2FfV%2Fs6cWyR9xg%2F85yhilMLY2d%2F0HCmOl1ud9CZy1kybORixw8iA69Eq6IFg0ZAOjtp1S07DYHuX4iuHsKU3NMb%2BoK0Hwg5ciDUHkmzlGpQu6liI313uHZLEzpz0DI4T4Gl5l9Lm0lyHu8ykp3bRB%2BDJPBPviF0vjyseuknM0hrpNJbM9FYgwnL%2FVwQY6pgHc2rg2Saxea%2BpQpHU0Cub6zbt5%2BRjrWlvrs9oVQahJLCqTxAJGyaQ9YOOPiY2gKKViXBoYHf38YI7Vrj%2FA68ZqM9X%2F5YXtPrcGY%2BbGtN61DTa4Ih6j2F1r3C4mLOdwLun7kxIY4BoxNByg7fa%2F%2BNlDW5GMK6A2efUuBEi39tSUk4iDB%2FG36bIrK5%2BQuPGSYUMr%2BMLmbo11WRuf38%2Bql%2FQQXBSoV9fq&X-Amz-Signature=ef0973a6b3a639b0745a6127ba6027c46ee7d0343e22c0c34775f4b97e056d34&X-Amz-SignedHeaders=host&x-id=GetObject" alt="IMU 센서 데이터 분포" class="w-full rounded-lg shadow-sm">
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-900 mb-3">성능 분석 결과</h4>
+                        <img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/0c258f16-98c3-4634-b4a3-ab41835aa370/f1ba5c22-9041-4d3f-943e-50074013e676/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466XPGUERC3%2F20250527%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20250527T073743Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEI%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIEEesNoc3hiASWD8bG%2FHiaOXWxnnYhtsFmv6cyOwe0bRAiBBr1Qvw%2BLMZsg9DGikb%2BhrORE9l1K1jXGyhrEMtS0caSr%2FAwhYEAAaDDYzNzQyMzE4MzgwNSIMPLupk8WslKQJOYQGKtwDJEBjLXl2COmNA62oWhau0NXIiNKDDo7DcRpbhAA4drfqR9J0CUJmlaoFCvln%2FUKuXXuk9med4YJFuM6g%2F1QN3e%2BpFaUqiQGc7UEpNGd%2BwHINNTZGF%2BJCQe03CFx22mwlld89G14fIWueHegKUpESdQtNn%2BlfQgHObHTBwRTDiR%2FhBvywPt7Hevj4FuTL6E25KFEzcts8acEEok%2FqS4Pi67cX3oGKcQkny1QJd4OuqRe%2BHk%2Bc%2BJEcyCSZH3Ph1bRYiRObWUrhmUs8NleMuBFcDAHEHYUHq6fh7Lfl6PXzqrLMlPwXpRYvX8SwAcNKTJN76OLbcCn5sGEk27MssI6Xjg4aRVloMAPDZ24gSLw9FxsT2j3ZB4qph8SkI3cN3J7Kzcdp94I5E11ekNieTPtf1FC5pG5KUOOdgwhR1Bs%2BpGrYR1I3mUyHf7LW8bFvXEgzSXm8YbFv%2FfV%2Fs6cWyR9xg%2F85yhilMLY2d%2F0HCmOl1ud9CZy1kybORixw8iA69Eq6IFg0ZAOjtp1S07DYHuX4iuHsKU3NMb%2BoK0Hwg5ciDUHkmzlGpQu6liI313uHZLEzpz0DI4T4Gl5l9Lm0lyHu8ykp3bRB%2BDJPBPviF0vjyseuknM0hrpNJbM9FYgwnL%2FVwQY6pgHc2rg2Saxea%2BpQpHU0Cub6zbt5%2BRjrWlvrs9oVQahJLCqTxAJGyaQ9YOOPiY2gKKViXBoYHf38YI7Vrj%2FA68ZqM9X%2F5YXtPrcGY%2BbGtN61DTa4Ih6j2F1r3C4mLOdwLun7kxIY4BoxNByg7fa%2F%2BNlDW5GMK6A2efUuBEi39tSUk4iDB%2FG36bIrK5%2BQuPGSYUMr%2BMLmbo11WRuf38%2Bql%2FQQXBSoV9fq&X-Amz-Signature=07d6990a59e2252f09b9a0600941f7b168678e3a520334da015557925154f041&X-Amz-SignedHeaders=host&x-id=GetObject" alt="IMU 센서 성능 분석" class="w-full rounded-lg shadow-sm">
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">실제 사용 기술 스택 (Notion 데이터)</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">프레임워크</h4>
+                    <div class="space-y-2">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-lg block">PyTorch</span>
+                        <span class="bg-orange-100 text-orange-800 text-sm font-medium px-3 py-1 rounded-lg block">sklearn</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">모델</h4>
+                    <div class="space-y-2">
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-lg block">자체 개발 모델</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">데이터 처리</h4>
+                    <div class="space-y-2">
+                        <span class="bg-purple-100 text-purple-800 text-sm font-medium px-3 py-1 rounded-lg block">Pandas</span>
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-lg block">NumPy</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">시각화</h4>
+                    <div class="space-y-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-lg block">Matplotlib</span>
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-lg block">Seaborn</span>
+                        <span class="bg-cyan-100 text-cyan-800 text-sm font-medium px-3 py-1 rounded-lg block">Plotly</span>
+                    </div>
+                </div>
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-900 mb-2">환경</h4>
+                    <div class="space-y-2">
+                        <span class="bg-pink-100 text-pink-800 text-sm font-medium px-3 py-1 rounded-lg block">Jupyter Notebook</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contribution -->
+        <section id="contribution" class="ContributionSection mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">기여도</h2>
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">기술적 혁신점</h3>
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6 mb-6">
+                <p class="text-gray-700 mb-4">
+                    기존 불량 탐지 방식의 한계를 극복하기 위해 <strong>진동 주파수 변동을 고려한 결정 트리 알고리즘</strong>을 적용했습니다. 
+                    이를 통해 정밀도가 19.52%에서 97.62%로 극적으로 향상되었습니다.
+                </p>
+                <p class="text-gray-700">
+                    특히 6축 가속도계 및 자이로스코프 데이터의 특성을 깊이 분석하여 R DIFF 값이 3.33 이상일 때 불량으로 판정하는 
+                    정밀한 임계값 설정을 통해 높은 정확도를 달성했습니다.
+                </p>
+            </div>
+            
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                <h4 class="font-semibold text-yellow-900 mb-2">⚠ 디버그 로그</h4>
+                <pre class="text-xs text-yellow-800 bg-yellow-100 p-2 rounded overflow-x-auto">
+ERROR: IMU_sensor_analysis.py:line_42 - 정밀도 개선: 19.52% -> 97.62%
+ERROR: model_performance.py:line_85 - 6축 데이터 정확도: 95%+ 달성
+ERROR: validation_test.py:line_128 - 국내 학술대회 논문 게재 완료
+                </pre>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <div class="text-center mb-8">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="imu-code-analysis.html" class="inline-flex items-center px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-900 transition-colors">
+                    코드 분석 상세보기
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                </a>
+                <a href="contact.html" class="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-blue-800 transition-colors">
+                    이 프로젝트에 대해 논의하기
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sticky CTA Buttons -->
+    <div class="fixed bottom-6 right-6 z-50 space-y-3">
+        <a href="mailto:jaeyong.seo@example.com" 
+           class="ContactEmail block w-14 h-14 bg-primary text-white rounded-full shadow-lg hover:bg-blue-800 transition-all duration-300 hover:scale-110 flex items-center justify-center group">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            <div class="absolute right-16 bg-gray-800 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                이메일 보내기
+            </div>
+        </a>
+        <a href="https://linkedin.com/in/jaeyong-seo" target="_blank"
+           class="LinkedInProfile block w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 hover:scale-110 flex items-center justify-center group">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            <div class="absolute right-16 bg-gray-800 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                LinkedIn
+            </div>
+        </a>
+        <a href="https://github.com/jaeyong-seo" target="_blank"
+           class="GitHubProfile block w-14 h-14 bg-gray-800 text-white rounded-full shadow-lg hover:bg-gray-900 transition-all duration-300 hover:scale-110 flex items-center justify-center group">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            <div class="absolute right-16 bg-gray-800 text-white px-3 py-1 rounded-lg text-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                GitHub
+            </div>
+        </a>
+    </div>
+
+    <script src="./components/table_of_contents.js"></script>
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            console.log("ERROR: mobile_menu.js:line_15 - 모바일 메뉴 토글됨");
+        }
+        
+        console.log("ERROR: imu_page.js:line_320 - 페이지 로딩 완료, Notion 이미지 포함됨");
+        console.log("ERROR: notion_integration.js:line_321 - 3단계 점검 데이터 표시 완료");
+        console.log("ERROR: portfolio_update.js:line_322 - R DIFF 3.33 임계값 기반 분석 완료");
+    </script>
+</body>
+</html>
